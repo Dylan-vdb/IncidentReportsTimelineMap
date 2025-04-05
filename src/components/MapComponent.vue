@@ -1,6 +1,7 @@
 <template>
   <div class="map-container w-full h-[calc(100vh-3rem)]">
     <div ref="mapRef" class="map w-full h-full"></div>
+    <IncidentLayer :map="map" v-if="map" />
   </div>
 </template>
 
@@ -12,15 +13,16 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
+import IncidentLayer from './IncidentLayer.vue';
 
 // Eastern Cape approximate coordinates
 const EASTERN_CAPE_CENTER = fromLonLat([26.419389, -32.296382]);
 const mapRef = ref(null);
-let map;
+const map = ref(null);
 
 onMounted(() => {
   // Initialize OpenLayers map
-  map = new Map({
+  map.value = new Map({
     target: mapRef.value,
     layers: [
       new TileLayer({
