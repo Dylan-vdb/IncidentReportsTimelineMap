@@ -1,19 +1,5 @@
 <template>
-  <div class="incident-popup" v-if="selectedIncident" :style="popupStyle">
-    <div class="popup-content bg-white rounded-lg shadow-lg p-4 max-w-sm">
-      <button @click="closePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-      </button>
-      <img :src="selectedIncident.image" :alt="selectedIncident.name" class="w-full h-40 object-cover rounded-lg mb-3">
-      <h3 class="text-lg font-semibold mb-2">{{ selectedIncident.name }}</h3>
-      <p class="text-sm text-gray-600 mb-2">{{ formatDate(selectedIncident.datetime) }}</p>
-      <div class="text-sm text-gray-700">
-        <p>Location: {{ formatLocation(selectedIncident.location) }}</p>
-      </div>
-    </div>
-  </div>
+  <!-- ol-ext popup will be managed by OpenLayers overlay -->
 </template>
 
 <script setup>
@@ -25,6 +11,8 @@ import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { Style, Circle, Fill } from 'ol/style';
 import incidents from '../data/incidents';
+import 'ol-ext/dist/ol-ext.min.css';
+import Popup from 'ol-ext/overlay/Popup';
 
 const props = defineProps({
   map: {
@@ -33,10 +21,9 @@ const props = defineProps({
   }
 });
 
-const selectedIncident = ref(null);
-const popupStyle = ref({});
 let vectorLayer;
 let vectorSource;
+let popup;
 
 // Create a function to interpolate color between yellow and red based on severity
 const getColorForSeverity = (severity) => {
@@ -73,11 +60,6 @@ const formatLocation = (location) => {
   return `${location[0].toFixed(4)}, ${location[1].toFixed(4)}`;
 };
 
-// Close popup
-const closePopup = () => {
-  selectedIncident.value = null;
-};
-
 // Handle click events on markers
 const handleMapClick = (event) => {
   const feature = props.map.forEachFeatureAtPixel(event.pixel, (feature) => feature);
@@ -85,23 +67,35 @@ const handleMapClick = (event) => {
   if (feature) {
     const incident = feature.get('incident');
     if (incident) {
-      selectedIncident.value = incident;
       const coordinates = feature.getGeometry().getCoordinates();
-      const pixel = props.map.getPixelFromCoordinate(coordinates);
-      
-      popupStyle.value = {
-        position: 'absolute',
-        left: `${pixel[0]}px`,
-        top: `${pixel[1] - 10}px`,
-        transform: 'translate(-50%, -100%)'
-      };
+      const content = `
+        <div class="popup-content bg-white rounded-lg p-4 max-w-sm">
+          <img src="${incident.image}" alt="${incident.name}" class="w-full h-40 object-cover rounded-lg mb-3">
+          <h3 class="text-lg font-semibold mb-2">${incident.name}</h3>
+          <p class="text-sm text-gray-600 mb-2">${formatDate(incident.datetime)}</p>
+          <div class="text-sm text-gray-700">
+            <p>Location: ${formatLocation(incident.location)}</p>
+          </div>
+        </div>
+      `;
+      popup.show(coordinates, content);
     }
-  } else {
-    selectedIncident.value = null;
+  } else if (!props.map.getInteractions().getArray().some(i => i.getActive() && i.get('type') === 'popup-closer')) {
+    popup.hide();
   }
 };
 
 onMounted(() => {
+  // Create popup overlay
+  popup = new Popup({
+    popupClass: 'default anim',
+    closeBox: true,
+    onclose: () => {
+      // Optional: Add any cleanup code here
+    }
+  });
+  props.map.addOverlay(popup);
+
   // Create vector source and layer
   vectorSource = new VectorSource();
   vectorLayer = new VectorLayer({
@@ -129,16 +123,36 @@ onUnmounted(() => {
   if (props.map) {
     props.map.removeLayer(vectorLayer);
     props.map.un('click', handleMapClick);
+    props.map.removeOverlay(popup);
   }
 });
 </script>
 
-<style scoped>
-.incident-popup {
-  z-index: 1000;
+<style>
+/* Customize ol-ext popup styles */
+.ol-popup {
+  min-width: 200px;
+  max-width: 400px;
 }
 
-.popup-content {
-  min-width: 200px;
+.ol-popup .ol-popup-content {
+  padding: 0;
+}
+
+.ol-popup.anim {
+  transform-origin: bottom center;
+  transition: transform 0.3s;
+}
+
+.ol-popup.anim.ol-popup-bottom {
+  transform-origin: top center;
+}
+
+.ol-popup.anim.ol-popup-right {
+  transform-origin: center left;
+}
+
+.ol-popup.anim.ol-popup-left {
+  transform-origin: center right;
 }
 </style>
