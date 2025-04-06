@@ -10,6 +10,8 @@
       @start="isDragging = true"
       @end="isDragging = false"
       class="mb-4"
+      :lazy="false"
+      @update="handleRangeUpdate"
     />
     <div class="flex justify-between text-sm text-gray-600">
       <span>{{ formatDate(selectedRange[0]) }}</span>
@@ -57,13 +59,14 @@ const formatTooltip = (timestamp) => {
   return formatDate(timestamp);
 };
 
-// Watch for changes in selected range
-watch(selectedRange, (newRange) => {
+// Add new method after other methods
+const handleRangeUpdate = (newRange) => {
+  selectedRange.value = newRange;
   emit('update:dateRange', {
     start: new Date(newRange[0]),
     end: new Date(newRange[1])
   });
-});
+};
 </script>
 
 <style scoped>

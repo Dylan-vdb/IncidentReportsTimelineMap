@@ -71,13 +71,29 @@ const handleMapClick = (event) => {
     const incident = feature.get('incident');
     if (incident) {
       const coordinates = feature.getGeometry().getCoordinates();
+      const severityText = {
+        1: 'Low',
+        2: 'Moderate',
+        3: 'High',
+        4: 'Severe',
+        5: 'Critical'
+      }[incident.severity] || 'Unknown';
+
       const content = `
-        <div class="popup-content bg-white rounded-lg p-4 max-w-sm">
-          <img src="${incident.image}" alt="${incident.name}" class="w-full h-40 object-cover rounded-lg mb-3">
-          <h3 class="text-lg font-semibold mb-2">${incident.name}</h3>
-          <p class="text-sm text-gray-600 mb-2">${formatDate(incident.datetime)}</p>
-          <div class="text-sm text-gray-700">
-            <p>Location: ${formatLocation(incident.location)}</p>
+        <div class="popup-content bg-white rounded-lg pt-4 pb-4 pl-4 max-w-sm">
+          <div class="relative">
+            <img src="${incident.image}" alt="${incident.name}" class="w-full h-48 object-cover rounded-t-lg">
+            <span class="absolute top-2 right-2 px-3 py-1 text-sm font-medium rounded-full shadow-md" 
+                  style="background-color: ${getColorForSeverity(incident.severity)}; color: ${incident.severity > 2 ? 'white' : 'black'}">
+              ${severityText}
+            </span>
+          </div>
+          <div class="p-3">
+            <h3 class="text-lg font-semibold mb-2">${incident.name}</h3>
+            <p class="text-sm text-gray-600 mb-2">${formatDate(incident.datetime)}</p>
+            <div class="text-sm text-gray-700">
+              <p>Location: ${formatLocation(incident.location)}</p>
+            </div>
           </div>
         </div>
       `;
