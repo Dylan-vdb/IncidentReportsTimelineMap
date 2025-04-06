@@ -8,7 +8,12 @@
 </template>
 
 <script setup>
-// Component logic can be added here
+const props = defineProps({
+  incidents: {
+    type: Array,
+    required: true
+  }
+});
 </script>
 
 <style scoped>
