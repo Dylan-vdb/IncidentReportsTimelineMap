@@ -3,20 +3,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { Style, Circle, Fill } from 'ol/style';
-import incidents from '../data/incidents';
 import 'ol-ext/dist/ol-ext.min.css';
 import Popup from 'ol-ext/overlay/Popup';
 
 const props = defineProps({
   map: {
     type: Object,
+    required: true
+  },
+  incidents: {
+    type: Array,
     required: true
   }
 });
@@ -102,14 +105,25 @@ onMounted(() => {
     source: vectorSource
   });
 
-  // Add features for each incident
-  incidents.forEach(incident => {
-    const feature = new Feature({
-      geometry: new Point(fromLonLat(incident.location))
+  // Function to update features based on incidents prop
+  const updateFeatures = () => {
+    vectorSource.clear();
+    props.incidents.forEach(incident => {
+      const feature = new Feature({
+        geometry: new Point(fromLonLat(incident.location))
+      });
+      feature.setStyle(createCircleStyle(incident));
+      feature.set('incident', incident);
+      vectorSource.addFeature(feature);
     });
-    feature.setStyle(createCircleStyle(incident));
-    feature.set('incident', incident);
-    vectorSource.addFeature(feature);
+  };
+
+  // Initial features setup
+  updateFeatures();
+
+  // Watch for changes in incidents prop
+  watch(() => props.incidents, () => {
+    updateFeatures();
   });
 
   // Add layer to map

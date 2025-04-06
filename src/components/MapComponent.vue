@@ -1,7 +1,7 @@
 <template>
   <div class="map-container w-full h-[calc(100vh-3rem)]">
     <div ref="mapRef" class="map w-full h-full"></div>
-    <IncidentLayer :map="map" v-if="map" />
+    <IncidentLayer :map="map" :incidents="incidents" v-if="map" />
   </div>
 </template>
 
@@ -14,6 +14,14 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import IncidentLayer from './IncidentLayer.vue';
+
+// Define props
+const props = defineProps({
+  incidents: {
+    type: Array,
+    required: true
+  }
+});
 
 // Eastern Cape approximate coordinates
 const EASTERN_CAPE_CENTER = fromLonLat([26.419389, -32.296382]);

@@ -49,7 +49,8 @@ const isDragging = ref(false);
 
 // Format date for tooltip and display
 const formatDate = (timestamp) => {
-  return new Date(timestamp).toLocaleDateString();
+  const date = new Date(timestamp);
+  return date.getDate() + ' ' + date.toLocaleString('default', { month: 'short' }) + ' ' + date.getFullYear();
 };
 
 const formatTooltip = (timestamp) => {

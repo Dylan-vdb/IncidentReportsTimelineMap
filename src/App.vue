@@ -19,7 +19,7 @@ const updateDateRange = ({ start, end }) => {
 
 <template>
   <main class="min-h-screen w-full flex flex-col relative">
-    <Toolbar :incidents="allIncidents" />
+    <Toolbar :incidents="filteredIncidents" />
     <MapComponent :incidents="filteredIncidents" />
     <div class="absolute bottom-8 left-0 right-0 z-10">
       <TimelineSlider
