@@ -85,7 +85,7 @@ const handleMapClick = (event) => {
       }[incident.severity] || 'Unknown';
 
       const content = `
-        <div class="popup-content bg-white rounded-lg shadow-lg overflow-hidden max-w-sm transform transition-transform duration-200 hover:scale-[1.02]">
+        <div class="popup-content bg-white rounded-sm shadow-lg overflow-hidden max-w-sm transform transition-transform duration-200 hover:scale-[1.02]">
           <div class="relative">
             <img src="${incident.image}" alt="${incident.name}" class="w-full h-48 object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -183,33 +183,34 @@ onUnmounted(() => {
 
 .ol-popup .ol-popup-content {
   padding: 0;
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
   overflow: hidden;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .ol-popup.hasclosebox .ol-popup-content {
     margin-right: 0;
+    padding: 5px;
 }
 
 
 .ol-popup .closeBox {
-  right: 12px !important;
-  left: auto !important;
-  top: 12px !important;
-  background: rgba(0, 0, 0, 0.5) !important;
-  border-radius: 50% !important;
-  width: 32px !important;
-  height: 32px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transition: all 0.2s ease !important;
-  padding: 0 !important;
-  border: none !important;
-  z-index: 10 !important;
-  position: absolute !important;
-  cursor: pointer !important;
+  right: 12px;
+  left: auto;
+  top: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  border: none;
+  z-index: 10;
+  position: absolute;
+  cursor: pointer;
 }
 
 .ol-popup .closeBox:hover {
