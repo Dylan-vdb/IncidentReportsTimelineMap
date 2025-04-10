@@ -151,18 +151,14 @@ onMounted(() => {
     });
   };
 
-  // Initial features setup
   updateFeatures();
 
-  // Watch for changes in incidents prop
   watch(() => props.incidents, () => {
     updateFeatures();
   });
 
-  // Add layer to map
   props.map.addLayer(vectorLayer);
   
-  // Add click handler
   props.map.on('click', handleMapClick);
 });
 
@@ -197,7 +193,6 @@ onUnmounted(() => {
 }
 
 
-/* Remove white strip and style close button */
 .ol-popup .closeBox {
   right: 12px !important;
   left: auto !important;
@@ -228,6 +223,10 @@ onUnmounted(() => {
   line-height: 1 !important;
   margin: 0 !important;
   position: static !important;
+}
+
+.ol-popup .closeBox:after {
+    margin: -.55em 0;
 }
 
 .ol-popup.anim {
