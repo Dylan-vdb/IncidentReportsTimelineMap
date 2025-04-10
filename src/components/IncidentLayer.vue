@@ -55,7 +55,12 @@ const createCircleStyle = (incident) => {
 
 // Format date for display
 const formatDate = (datetime) => {
-  return new Date(datetime).toLocaleString();
+  const date = new Date(datetime);
+  const day = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  const year = date.getFullYear();
+  const time = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  return `${day} ${month} ${year}, ${time}`;
 };
 
 // Format location for display
@@ -80,19 +85,31 @@ const handleMapClick = (event) => {
       }[incident.severity] || 'Unknown';
 
       const content = `
-        <div class="popup-content bg-white rounded-lg pt-4 pb-4 pl-4 max-w-sm">
+        <div class="popup-content bg-white rounded-lg shadow-lg overflow-hidden max-w-sm transform transition-transform duration-200 hover:scale-[1.02]">
           <div class="relative">
-            <img src="${incident.image}" alt="${incident.name}" class="w-full h-48 object-cover rounded-t-lg">
-            <span class="absolute top-2 right-2 px-3 py-1 text-sm font-medium rounded-full shadow-md" 
+            <img src="${incident.image}" alt="${incident.name}" class="w-full h-48 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <span class="absolute top-3 left-3 px-3 py-1.5 text-sm font-semibold rounded-full shadow-lg" 
                   style="background-color: ${getColorForSeverity(incident.severity)}; color: ${incident.severity > 2 ? 'white' : 'black'}">
               ${severityText}
             </span>
           </div>
-          <div class="p-3">
-            <h3 class="text-lg font-semibold mb-2">${incident.name}</h3>
-            <p class="text-sm text-gray-600 mb-2">${formatDate(incident.datetime)}</p>
-            <div class="text-sm text-gray-700">
-              <p>Location: ${formatLocation(incident.location)}</p>
+          <div class="p-4 space-y-3">
+            <h3 class="text-xl font-bold text-gray-900">${incident.name}</h3>
+            <div class="space-y-2">
+              <p class="text-sm text-gray-600 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                ${formatDate(incident.datetime)}
+              </p>
+              <p class="text-sm text-gray-600 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                ${formatLocation(incident.location)}
+              </p>
             </div>
           </div>
         </div>
@@ -163,10 +180,54 @@ onUnmounted(() => {
 .ol-popup {
   min-width: 200px;
   max-width: 400px;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
 }
 
 .ol-popup .ol-popup-content {
   padding: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.ol-popup.hasclosebox .ol-popup-content {
+    margin-right: 0;
+}
+
+
+/* Remove white strip and style close button */
+.ol-popup .closeBox {
+  right: 12px !important;
+  left: auto !important;
+  top: 12px !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  border: none !important;
+  z-index: 10 !important;
+  position: absolute !important;
+  cursor: pointer !important;
+}
+
+.ol-popup .closeBox:hover {
+  background: rgba(0, 0, 0, 0.7) !important;
+  transform: scale(1.1);
+}
+
+.ol-popup .closeBox:before {
+  color: white !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  position: static !important;
 }
 
 .ol-popup.anim {
