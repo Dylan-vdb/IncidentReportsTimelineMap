@@ -10,15 +10,16 @@
   },
   "dependencies": {
     "@radix-ui/colors": "^3.0.0",
+    "@vueform/slider": "^2.1.10",
     "@vueuse/core": "^13.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ol": "^10.5.0",
     "ol-ext": "^4.0.29",
+    "pinia": "^3.0.2",
     "tailwind-merge": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
-    "vue": "^3.5.13",
-    "@vueform/slider": "^2.1.10"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

@@ -1,5 +1,13 @@
 <template>
-  <!-- ol-ext popup will be managed by OpenLayers overlay -->
+  <div>
+    <!-- ol-ext popup will be managed by OpenLayers overlay -->
+    <IncidentForm
+      :is-open="showEditForm"
+      :incident-to-edit="selectedIncident"
+      @close="handleFormClose"
+      @submit="handleFormClose"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -12,6 +20,12 @@ import { fromLonLat } from 'ol/proj';
 import { Style, Circle, Fill } from 'ol/style';
 import 'ol-ext/dist/ol-ext.min.css';
 import Popup from 'ol-ext/overlay/Popup';
+import IncidentForm from './IncidentForm.vue';
+import { useIncidentsStore } from '../stores/incidents';
+
+const store = useIncidentsStore();
+const showEditForm = ref(false);
+const selectedIncident = ref(null);
 
 const props = defineProps({
   map: {
@@ -68,6 +82,20 @@ const formatLocation = (location) => {
   return `${location[0].toFixed(4)}, ${location[1].toFixed(4)}`;
 };
 
+const handleFormClose = () => {
+  showEditForm.value = false;
+  selectedIncident.value = null;
+};
+
+// Function to handle edit button click
+const handleEditClick = (incidentId) => {
+  selectedIncident.value = store.getIncidentById(incidentId);
+  showEditForm.value = true;
+};
+
+// Add the edit function to window for popup button access
+window.editIncident = handleEditClick;
+
 // Handle click events on markers
 const handleMapClick = (event) => {
   const feature = props.map.forEachFeatureAtPixel(event.pixel, (feature) => feature);
@@ -89,6 +117,17 @@ const handleMapClick = (event) => {
           <div class="relative">
             <img src="${incident.image}" alt="${incident.name}" class="w-full h-48 object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div class="absolute bottom-4 right-4">
+              <button
+                onclick="window.editIncident(${incident.id})"
+                class="px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm font-medium shadow-md"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                Edit
+              </button>
+            </div>
             <span class="absolute top-3 left-3 px-3 py-1.5 text-sm font-semibold rounded-full shadow-lg" 
                   style="background-color: ${getColorForSeverity(incident.severity)}; color: ${incident.severity > 2 ? 'white' : 'black'}">
               ${severityText}
