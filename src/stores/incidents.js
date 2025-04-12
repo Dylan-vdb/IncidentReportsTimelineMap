@@ -28,7 +28,14 @@ export const useIncidentsStore = defineStore('incidents', {
     async addIncident(incident) {
       // TODO: Implement API call
       this.allIncidents.push(incident);
-      this.filteredIncidents = this.allIncidents;
+      // Re-apply current filter by finding the date range from existing filtered incidents
+      if (this.filteredIncidents.length > 0) {
+        const start = new Date(Math.min(...this.filteredIncidents.map(inc => new Date(inc.datetime))));
+        const end = new Date(Math.max(...this.filteredIncidents.map(inc => new Date(inc.datetime))));
+        this.filterByDateRange(start, end);
+      } else {
+        this.filteredIncidents = this.allIncidents;
+      }
     },
 
     async updateIncident(id, updatedIncident) {

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg40"
+   sodipodi:docname="crosshair.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata46">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs44" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     id="namedview42"
+     showgrid="false"
+     inkscape:zoom="3.337544"
+     inkscape:cx="122.85012"
+     inkscape:cy="50.700871"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg40" />
+  <!-- Outer circle -->
+  <circle
+     cx="50"
+     cy="50"
+     r="48"
+     stroke="rgba(255,255,255,0.3)"
+     stroke-width="1"
+     fill="none"
+     id="circle2"
+     style="stroke:#000000;stroke-opacity:1" />
+  <!-- Inner circle -->
+  <circle
+     cx="50"
+     cy="50"
+     r="24"
+     stroke="rgba(255,255,255,0.5)"
+     stroke-width="1"
+     fill="none"
+     id="circle4"
+     style="stroke:#000000;stroke-opacity:1" />
+  <!-- Center dot -->
+  <circle
+     cx="50"
+     cy="50"
+     r="1"
+     fill="rgba(255,255,255,0.9)"
+     id="circle6"
+     style="stroke:#000000;stroke-opacity:1" />
+  <!-- Crosshair lines -->
+  <line
+     x1="50"
+     y1="0"
+     x2="50"
+     y2="38"
+     stroke="rgba(255,255,255,0.8)"
+     stroke-width="1"
+     id="line8"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="50"
+     y1="62"
+     x2="50"
+     y2="100"
+     stroke="rgba(255,255,255,0.8)"
+     stroke-width="1"
+     id="line10"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="0"
+     y1="50"
+     x2="38"
+     y2="50"
+     stroke="rgba(255,255,255,0.8)"
+     stroke-width="1"
+     id="line12"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="62"
+     y1="50"
+     x2="100"
+     y2="50"
+     stroke="rgba(255,255,255,0.8)"
+     stroke-width="1"
+     id="line14"
+     style="stroke:#000000;stroke-opacity:1" />
+  <!-- Measurement marks -->
+  <!-- Vertical top -->
+  <line
+     x1="50"
+     y1="10"
+     x2="53"
+     y2="10"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line16"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="50"
+     y1="20"
+     x2="53"
+     y2="20"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line18"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="50"
+     y1="30"
+     x2="53"
+     y2="30"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line20"
+     style="stroke:#000000;stroke-opacity:1" />
+  <!-- Vertical bottom -->
+  <line
+     x1="50"
+     y1="90"
+     x2="53"
+     y2="90"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line22"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="50"
+     y1="80"
+     x2="53"
+     y2="80"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line24"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="50"
+     y1="70"
+     x2="53"
+     y2="70"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line26"
+     style="stroke:#000000;stroke-opacity:1" />
+  <!-- Horizontal left -->
+  <line
+     x1="10"
+     y1="50"
+     x2="10"
+     y2="53"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line28"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="20"
+     y1="50"
+     x2="20"
+     y2="53"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line30"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="30"
+     y1="50"
+     x2="30"
+     y2="53"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line32"
+     style="stroke:#000000;stroke-opacity:1" />
+  <!-- Horizontal right -->
+  <line
+     x1="90"
+     y1="50"
+     x2="90"
+     y2="53"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line34"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="80"
+     y1="50"
+     x2="80"
+     y2="53"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line36"
+     style="stroke:#000000;stroke-opacity:1" />
+  <line
+     x1="70"
+     y1="50"
+     x2="70"
+     y2="53"
+     stroke="rgba(255,255,255,0.6)"
+     stroke-width="1"
+     id="line38"
+     style="stroke:#000000;stroke-opacity:1" />
+</svg>
