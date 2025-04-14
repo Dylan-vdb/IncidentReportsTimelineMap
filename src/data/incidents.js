@@ -4,7 +4,7 @@ const incidents = [
     id: 1,
     name: 'Traffic Accident - N2 Highway',
     location: [26.8813, -32.9940],
-    datetime: '2024-01-15T08:30:00',
+    datetime: '2024-01-23T08:30:00',
     image: 'https://picsum.photos/id/1/200/200',
     severity: 4
   },
@@ -12,7 +12,7 @@ const incidents = [
     id: 2,
     name: 'Power Outage - East London CBD',
     location: [27.9116, -32.9834],
-    datetime: '2024-01-14T16:45:00',
+    datetime: '2024-01-19T16:45:00',
     image: 'https://picsum.photos/id/2/200/200',
     severity: 3
   },
@@ -20,7 +20,7 @@ const incidents = [
     id: 3,
     name: 'Water Main Break - Port Elizabeth',
     location: [25.6022, -33.9608],
-    datetime: '2024-01-13T11:20:00',
+    datetime: '2024-01-16T11:20:00',
     image: 'https://picsum.photos/id/3/200/200',
     severity: 3
   },
@@ -36,7 +36,7 @@ const incidents = [
     id: 5,
     name: 'Fire Incident - Grahamstown',
     location: [26.5333, -33.3142],
-    datetime: '2024-01-11T14:50:00',
+    datetime: '2024-01-09T14:50:00',
     image: 'https://picsum.photos/id/5/200/200',
     severity: 5
   },
@@ -44,7 +44,7 @@ const incidents = [
     id: 6,
     name: 'Road Closure - Queenstown',
     location: [26.8753, -31.8976],
-    datetime: '2024-01-10T09:25:00',
+    datetime: '2024-01-05T09:25:00',
     image: 'https://picsum.photos/id/6/200/200',
     severity: 2
   },
@@ -52,7 +52,7 @@ const incidents = [
     id: 7,
     name: 'Protest Action - King William\'s Town',
     location: [27.3939, -32.8864],
-    datetime: '2024-01-09T13:40:00',
+    datetime: '2024-01-02T13:40:00',
     image: 'https://picsum.photos/id/7/200/200',
     severity: 1
   },
@@ -60,7 +60,7 @@ const incidents = [
     id: 8,
     name: 'Building Collapse - Butterworth',
     location: [28.1447, -32.3272],
-    datetime: '2024-01-08T10:15:00',
+    datetime: '2023-12-29T10:15:00',
     image: 'https://picsum.photos/id/8/200/200',
     severity: 5
   },
@@ -68,7 +68,7 @@ const incidents = [
     id: 9,
     name: 'Flooding - Port Alfred',
     location: [26.8915, -33.5906],
-    datetime: '2024-01-07T17:30:00',
+    datetime: '2023-12-26T17:30:00',
     image: 'https://picsum.photos/id/9/200/200',
     severity: 4
   },
@@ -76,7 +76,7 @@ const incidents = [
     id: 10,
     name: 'Industrial Accident - Coega',
     location: [25.6741, -33.7761],
-    datetime: '2024-01-06T15:20:00',
+    datetime: '2023-12-23T15:20:00',
     image: 'https://picsum.photos/id/10/200/200',
     severity: 4
   },
@@ -84,7 +84,7 @@ const incidents = [
     id: 11,
     name: 'Railway Disruption - Cradock',
     location: [25.6199, -32.1642],
-    datetime: '2024-01-05T12:10:00',
+    datetime: '2023-12-20T12:10:00',
     image: 'https://picsum.photos/id/11/200/200',
     severity: 3
   },
@@ -92,7 +92,7 @@ const incidents = [
     id: 12,
     name: 'Bridge Damage - Lady Frere',
     location: [27.2328, -31.7036],
-    datetime: '2024-01-04T08:45:00',
+    datetime: '2023-12-17T08:45:00',
     image: 'https://picsum.photos/id/12/200/200',
     severity: 4
   },
@@ -100,7 +100,7 @@ const incidents = [
     id: 13,
     name: 'Gas Leak - Uitenhage',
     location: [25.4019, -33.7642],
-    datetime: '2024-01-03T16:55:00',
+    datetime: '2023-12-14T16:55:00',
     image: 'https://picsum.photos/id/13/200/200',
     severity: 4
   },
@@ -108,7 +108,7 @@ const incidents = [
     id: 14,
     name: 'School Emergency - Fort Beaufort',
     location: [26.6307, -32.7827],
-    datetime: '2024-01-02T11:35:00',
+    datetime: '2023-12-11T11:35:00',
     image: 'https://picsum.photos/id/14/200/200',
     severity: 3
   },
@@ -116,7 +116,7 @@ const incidents = [
     id: 15,
     name: 'Medical Emergency - Graaff-Reinet',
     location: [24.5308, -32.2522],
-    datetime: '2024-01-01T14:25:00',
+    datetime: '2023-12-08T14:25:00',
     image: 'https://picsum.photos/id/15/200/200',
     severity: 3
   },

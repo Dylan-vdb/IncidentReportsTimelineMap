@@ -3,7 +3,11 @@ import { defineStore } from 'pinia';
 export const useIncidentsStore = defineStore('incidents', {
   state: () => ({
     allIncidents: [],
-    filteredIncidents: []
+    filteredIncidents: [],
+    currentDateRange: {
+      start: null,
+      end: null
+    }
   }),
 
   actions: {
@@ -13,6 +17,7 @@ export const useIncidentsStore = defineStore('incidents', {
     },
 
     filterByDateRange(start, end) {
+      this.currentDateRange = { start, end };
       this.filteredIncidents = this.allIncidents.filter(incident => {
         const incidentDate = new Date(incident.datetime);
         return incidentDate >= start && incidentDate <= end;
@@ -28,11 +33,9 @@ export const useIncidentsStore = defineStore('incidents', {
     async addIncident(incident) {
       // TODO: Implement API call
       this.allIncidents.push(incident);
-      // Re-apply current filter by finding the date range from existing filtered incidents
-      if (this.filteredIncidents.length > 0) {
-        const start = new Date(Math.min(...this.filteredIncidents.map(inc => new Date(inc.datetime))));
-        const end = new Date(Math.max(...this.filteredIncidents.map(inc => new Date(inc.datetime))));
-        this.filterByDateRange(start, end);
+      // Re-apply current filter if exists
+      if (this.currentDateRange.start && this.currentDateRange.end) {
+        this.filterByDateRange(this.currentDateRange.start, this.currentDateRange.end);
       } else {
         this.filteredIncidents = this.allIncidents;
       }
@@ -43,8 +46,18 @@ export const useIncidentsStore = defineStore('incidents', {
       const index = this.allIncidents.findIndex(inc => inc.id === id);
       if (index !== -1) {
         this.allIncidents[index] = { ...this.allIncidents[index], ...updatedIncident };
-        this.filteredIncidents = [...this.allIncidents];
-      }
+        // Re-apply current filter if exists
+        if (this.currentDateRange.start && this.currentDateRange.end) {
+          const start = new Date(this.currentDateRange.start);
+          const end = new Date(this.currentDateRange.end);
+          this.filteredIncidents = this.allIncidents.filter(incident => {
+            const incidentDate = new Date(incident.datetime);
+            return incidentDate >= start && incidentDate <= end;
+          });
+        } else {
+          this.filteredIncidents = [...this.allIncidents];
+        }
+    }
     }
   },
 
