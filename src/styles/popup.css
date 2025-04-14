@@ -1,0 +1,71 @@
+.ol-popup {
+  min-width: 200px;
+  max-width: 400px;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.ol-popup .ol-popup-content {
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.ol-popup.hasclosebox .ol-popup-content {
+  margin-right: 0;
+  padding: 5px;
+}
+
+.ol-popup .closeBox {
+  right: 12px;
+  left: auto;
+  top: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  border: none;
+  z-index: 10;
+  position: absolute;
+  cursor: pointer;
+}
+
+.ol-popup .closeBox:hover {
+  background: rgba(0, 0, 0, 0.7) !important;
+  transform: scale(1.1);
+}
+
+.ol-popup .closeBox:before {
+  color: white !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  position: static !important;
+}
+
+.ol-popup .closeBox:after {
+  margin: -.55em 0;
+}
+
+.ol-popup.anim {
+  transform-origin: bottom center;
+  transition: transform 0.3s;
+}
+
+.ol-popup.anim.ol-popup-bottom {
+  transform-origin: top center;
+}
+
+.ol-popup.anim.ol-popup-right {
+  transform-origin: center left;
+}
+
+.ol-popup.anim.ol-popup-left {
+  transform-origin: center right;
+}
