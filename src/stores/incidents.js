@@ -32,12 +32,17 @@ export const useIncidentsStore = defineStore('incidents', {
 
     async addIncident(incident) {
       // TODO: Implement API call
-      this.allIncidents.push(incident);
+      this.allIncidents = [...this.allIncidents, incident];
       // Re-apply current filter if exists
       if (this.currentDateRange.start && this.currentDateRange.end) {
-        this.filterByDateRange(this.currentDateRange.start, this.currentDateRange.end);
+        const start = new Date(this.currentDateRange.start);
+        const end = new Date(this.currentDateRange.end);
+        this.filteredIncidents = this.allIncidents.filter(incident => {
+          const incidentDate = new Date(incident.datetime);
+          return incidentDate >= start && incidentDate <= end;
+        });
       } else {
-        this.filteredIncidents = this.allIncidents;
+        this.filteredIncidents = [...this.allIncidents];
       }
     },
 
