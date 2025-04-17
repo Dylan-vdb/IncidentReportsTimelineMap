@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch, h, render } from 'vue';
+import { ref, onMounted, onUnmounted, watch, h, render, computed } from 'vue';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
@@ -33,12 +33,10 @@ const props = defineProps({
   map: {
     type: Object,
     required: true
-  },
-  incidents: {
-    type: Array,
-    required: true
   }
 });
+
+const filteredIncidents = computed(() => store.getFilteredIncidents);
 
 let vectorLayer;
 let vectorSource;
@@ -91,7 +89,7 @@ onMounted(() => {
 
   const updateFeatures = () => {
     vectorSource.clear();
-    props.incidents.forEach(incident => {
+    filteredIncidents.value.forEach(incident => {
       const feature = new Feature({
         geometry: new Point(fromLonLat(incident.location))
       });
@@ -103,9 +101,9 @@ onMounted(() => {
 
   updateFeatures();
 
-  watch(() => props.incidents, () => {
+  watch(filteredIncidents, () => {
     updateFeatures();
-  });
+  }, { deep: true });
 
   props.map.addLayer(vectorLayer);
   props.map.on('click', handleMapClick);

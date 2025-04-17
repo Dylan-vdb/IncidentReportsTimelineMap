@@ -14,11 +14,15 @@
         Fire
       </button>
     </div>
+    <div v-if="showCrossMarker" class="cross-marker">
+      <img src="../assets/crosshair.svg" class="cross" alt="cross marker" />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed, watch, nextTick } from 'vue';
+import { useTimeout } from '@vueuse/core';
 import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -44,6 +48,7 @@ const map = ref(null);
 const mapStore = useMapStore();
 const isSelectingLocation = computed(() => mapStore.isSelectingLocation);
 const currentCenter = ref([0, 0]);
+const showCrossMarker = ref(false);
 
 const formatCoordinates = (coords) => {
   return `${coords[0].toFixed(6)}°, ${coords[1].toFixed(6)}°`;
@@ -63,6 +68,12 @@ const confirmLocation = () => {
   const coordinates = currentCenter.value;
   // First update the center coordinates
   mapStore.setCenter(coordinates);
+  // Show cross marker
+  showCrossMarker.value = true;
+  // Hide after 2 seconds
+  setTimeout(() => {
+    showCrossMarker.value = false;
+  }, 500);
   // Use nextTick to ensure the store update has propagated
   nextTick(() => {
     mapStore.setSelectingLocation(false);
@@ -142,5 +153,32 @@ onMounted(() => {
   transform: translate(-50%, 50px);
   transition: all 0.2s ease;
   pointer-events: auto;
+}
+
+.cross-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cross {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.8));
+  animation: pulse 2s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }
 </style>

@@ -34,14 +34,9 @@ const props = defineProps({
 
 const emit = defineEmits(['update:dateRange']);
 
-// Calculate min and max timestamps from incidents
-const minTimestamp = computed(() => {
-  return Math.min(...props.incidents.map(i => new Date(i.datetime).getTime()));
-});
-
-const maxTimestamp = computed(() => {
-  return Math.max(...props.incidents.map(i => new Date(i.datetime).getTime()));
-});
+// Calculate initial min and max timestamps from incidents
+const minTimestamp = ref(Math.min(...props.incidents.map(i => new Date(i.datetime).getTime())));
+const maxTimestamp = ref(Math.max(...props.incidents.map(i => new Date(i.datetime).getTime())));
 
 // Initialize selected range with full range
 const selectedRange = ref([minTimestamp.value, maxTimestamp.value]);
