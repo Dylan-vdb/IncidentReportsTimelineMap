@@ -43,7 +43,24 @@ let vectorSource;
 let popup;
 
 const handleFormClose = () => {
+  const incident = selectedIncident.value;
   showEditForm.value = false;
+  
+  if (incident) {
+    // Find the feature for the edited incident
+    const feature = vectorSource.getFeatures().find(f => f.get('incident').id === incident.id);
+    if (feature) {
+      const coordinates = feature.getGeometry().getCoordinates();
+      const container = document.createElement('div');
+      const vnode = h(IncidentPopup, {
+        incident,
+        onEdit: handleEditClick
+      });
+      render(vnode, container);
+      popup.show(coordinates, container);
+    }
+  }
+  
   selectedIncident.value = null;
 };
 
